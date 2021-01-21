@@ -36,5 +36,4 @@ df.dropna()
 df.index+=1
 #df.to_excel('/virology_blog.xlsx')
 #df.to_html('/virology_blog.html', render_links=True)
-df.to_csv('/virology_blog.csv', index=False)
-#print(df)
+df.to_csv('virology_blog/virology_blog.csv', index=False)
