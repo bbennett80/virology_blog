@@ -6,7 +6,7 @@ on:
       - main
   workflow_dispatch:
   schedule:
-    - cron:  '6, 23 * * *'
+    - cron:  '0 7 * * *'
 
 jobs:
   scheduled:
@@ -26,7 +26,8 @@ jobs:
     - name: Install Python dependencies
       run: pip install -r requirements.txt
     - name: Run scrapers
-      run: python virologyblogxlml.py
+      run: |
+        python virologyblogxlml.py
     - name: Write to CSV file
     - uses: gr2m/write-csv-file-action@v1.0.0
       with:
