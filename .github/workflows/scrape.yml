@@ -24,13 +24,13 @@ jobs:
         path: ${{ env.pythonLocation }}
         key: ${{ env.pythonLocation }}-${{ hashFiles('setup.py') }}-${{ hashFiles('dev-requirements.txt') }}
     - name: Install Python dependencies
-      run: |
-        pip install -r requirements.txt
+      run: pip install -r requirements.txt
     - name: Run scrapers
       run: python virologyblogxlml.py
-    - uses: gr2m/write-csv-file-action@v1.x
+    - name: Write to CSV file
+    - uses: gr2m/write-csv-file-action@v1.0.0
       with:
-        path: ./virology_blog.csv
+        path: virology_blog/virology_blog.csv
     - name: Commit and push if it changed
       run: |-
         git config user.name "Automated"
