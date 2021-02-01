@@ -8,8 +8,8 @@ titles = []
 links = []
 
 #i = 1  start from first page of blog
-i = 1
-#print('Seaching virology.ws for blog posts')
+i = 217
+print('Seaching virology.ws for blog posts')
 
 while True: 
     url = f'https://www.virology.ws/page/{i}'
@@ -19,19 +19,25 @@ while True:
         break
     else:
         soup = lxml.html.fromstring(response.content)
-        for d in range(2, 12):
-            date = str(soup.xpath(f'/html/body/div[2]/div/div[1]/div[{d}]/div[1]/div/span/text()'))
-            title = str(soup.xpath(f'/html/body/div[2]/div/div[1]/div[{d}]/div[1]/h2/a/text()'))
-            link = str(soup.xpath(f'/html/body/div[2]/div/div[1]/div[{d}]/div[1]/h2/a/@href'))
+        for d in range(1, 11):
+            date = str(soup.xpath(f'/html/body/div/div/div/main/article[{d}]/header/p/time/text()'))
+            title = str(soup.xpath(f'/html/body/div/div/div/main/article[{d}]/header/h2/a/text()'))
+            link = str(soup.xpath(f'/html/body/div/div/div/main/article[{d}]/header/h2/a/@href'))
             date_form = date.strip("[]'")
+            if not date_form:
+                break
             dates.append(date_form)
             title_form = title.strip("[]'")
             titles.append(title_form)
             link_form = link.strip("[]'")
             links.append(link_form)
-           # print(f'Gathering information from {date} post.')
+            print(f'Gathering information from {date} post.')
 data = {'Date': dates, 'Title': titles, 'Link': links} 
 df = pd.DataFrame(data = data)
 df.dropna()
 df.index+=1
-df.to_csv('./virology_blog.csv', index=False)
+#df.to_excel('virology_blog.xlsx')
+#df.to_html('virology_blog.html', render_links=True)
+#df.to_csv('virology_blog.csv', index=False)
+#df.to_json('virology_blog.json', orient='split', index=False)
+#print(df)
