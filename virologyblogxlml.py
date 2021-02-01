@@ -34,6 +34,4 @@ data = {'Date': dates, 'Title': titles, 'Link': links}
 df = pd.DataFrame(data = data)
 df.dropna()
 df.index+=1
-#df.to_excel('/virology_blog.xlsx')
-#df.to_html('/virology_blog.html', render_links=True)
-df.to_csv('virology_blog/virology_blog.csv', index=False)
+df.to_csv('./virology_blog.csv', index=False)
