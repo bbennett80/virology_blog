@@ -34,9 +34,6 @@ while True:
             print(f'Gathering information from {date} post.')
 data = {'Date': dates, 'Title': titles, 'Link': links} 
 df = pd.DataFrame(data = data)
-df.dropna()
-df.index+=1
-#df.to_excel('virology_blog.xlsx')
+
 #df.to_html('virology_blog.html', render_links=True)
 df.to_csv('virology_blog.csv', index=False)
-#df.to_json('virology_blog.json', orient='split', index=False)
