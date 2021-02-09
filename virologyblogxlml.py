@@ -32,7 +32,7 @@ while True:
             link_form = link.strip("[]'")
             links.append(link_form)
             print(f'Gathering information from {date} post.')
-data = {'Date': dates, 'Title with Link': '', 'Title': titles, 'Link': links} 
+data = {'Date': dates, 'Title': titles, 'Link': links} 
 df = pd.DataFrame(data = data)
 
 #df.to_html('virology_blog.html', render_links=True)
