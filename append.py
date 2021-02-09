@@ -30,7 +30,6 @@ data = {'Date': dates, 'Title': titles, 'Link': links}
 df_scrape = pd.DataFrame(data = data)
 
 df_old = pd.read_csv('https://raw.githubusercontent.com/bbennett80/virology_blog/main/virology_blog.csv')
-df_old = df_old[:10]
 
 df_append = df_scrape[~df_scrape.Title.isin(df_old.Title)]
 
