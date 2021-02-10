@@ -13,4 +13,3 @@ Please follow all of Dr. Racaniello's podcast:
 [This Week in Neuroscience](https://www.microbe.tv/twin/) </br>
 
 A Google Sheet verion can be found [here](https://docs.google.com/spreadsheets/d/15YhpqfOwC-oyK_OdBp9Rllv9V_eBniJzF3-oK2dzfog/edit?usp=sharing).
-<a href="https://docs.google.com/spreadsheets/d/15YhpqfOwC-oyK_OdBp9Rllv9V_eBniJzF3-oK2dzfog/edit?usp=sharing" target="_blank">here</a>
