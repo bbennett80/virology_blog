@@ -6,25 +6,22 @@ import pandas as pd
 dates = []
 titles = []
 links = []
-#i = 1  start from first page of blog
-# i = 1
-print('Seaching virology.ws for blog posts')
+
 url = 'https://www.virology.ws/'
 r = requests.get(url)
-soup = lxml.html.fromstring(r.content)
+s = lxml.html.fromstring(r.content)
+
 for d in range(1, 11):
-    date = str(soup.xpath(f'/html/body/div/div/div/main/article[{d}]/header/p/time/text()'))
-    title = str(soup.xpath(f'/html/body/div/div/div/main/article[{d}]/header/h2/a/text()'))
-    link = str(soup.xpath(f'/html/body/div/div/div/main/article[{d}]/header/h2/a/@href'))
+    date = str(s.xpath(f'/html/body/div/div/div/main/article[{d}]/header/p/time/text()'))
+    title = str(s.xpath(f'/html/body/div/div/div/main/article[{d}]/header/h2/a/text()'))
+    link = str(s.xpath(f'/html/body/div/div/div/main/article[{d}]/header/h2/a/@href'))
     date_form = date.strip("[]'")
-    if not date_form:
-        break
+    
     dates.append(date_form)
     title_form = title.strip("[]'")
     titles.append(title_form)
     link_form = link.strip("[]'")
     links.append(link_form)
-    print(f'Gathering information from {date} post.')
 
 data = {'Date': dates, 'Title': titles, 'Link': links} 
 df_scrape = pd.DataFrame(data = data)
