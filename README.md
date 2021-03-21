@@ -3,6 +3,8 @@
 
 This small script crawls the blog daily, and updates the contents to a .csv file with the Blog: date, title, and link. </br> 
 
+The .csv file in the repository can be quickly [searched](https://github.com/bbennett80/virology_blog/blob/main/virology_blog.csv). 
+
 Please follow all of Dr. Racaniello's podcast:
 
 [This Week in Virology](http://www.microbe.tv/twiv/) </br>
