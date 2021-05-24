@@ -38,11 +38,11 @@ def scrape_blog(max_page):
     for i in trange(1, max_page):
 
         url = f'http://www.virology.ws/page/{i}'
-        html = requests.get(url)
-        if html.status_code != 200:
+        r = requests.get(url)
+        if r.status_code != 200:
             break
         else:
-            html = requests.get(url).text
+            html = r.text
             soup = BeautifulSoup(html, 'html.parser')
 
             for element in soup.find_all('div', {'class': 'site-inner'}):
