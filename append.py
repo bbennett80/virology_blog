@@ -7,7 +7,7 @@ dates = []
 titles = []
 links = []
 
-url = 'https://www.virology.ws/'
+url = 'http://www.virology.ws/'
 r = requests.get(url)
 s = lxml.html.fromstring(r.content)
 
