@@ -25,6 +25,7 @@ for d in range(1, 11):
 
 data = {'Date': dates, 'Title': titles, 'Link': links} 
 df_scrape = pd.DataFrame(data = data)
+print(df_scrape)
 
 df_old = pd.read_csv('https://raw.githubusercontent.com/bbennett80/virology_blog/main/virology_blog.csv')
 
