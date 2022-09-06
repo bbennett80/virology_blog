@@ -1,34 +1,33 @@
 #!/usr/bin/env python3
-import requests
-import lxml.html
+from bs4 import BeautifulSoup
 import pandas as pd
+import requests
 
-dates = []
-titles = []
-links = []
+def scrape_blog_front_page():
+    """Gathers/creates a table of blog first page"""    
+    table = []
 
-url = 'https://www.virology.ws/'
-r = requests.get(url)
-s = lxml.html.fromstring(r.content)
+    url = 'http://www.virology.ws/page/1'
+    r = requests.get(url)
+    html = r.text
+    soup = BeautifulSoup(html, 'html.parser')
 
-for d in range(1, 11):
-    date = str(s.xpath(f'/html/body/div/div/div/main/article[{d}]/header/p/time/text()'))
-    title = str(s.xpath(f'/html/body/div/div/div/main/article[{d}]/header/h2/a/text()'))
-    link = str(s.xpath(f'/html/body/div/div/div/main/article[{d}]/header/h2/a/@href'))
-    date_form = date.strip("[]'")
-    
-    dates.append(date_form)
-    title_form = title.strip("[]'")
-    titles.append(title_form)
-    link_form = link.strip("[]'")
-    links.append(link_form)
+    for element in soup.find_all('div', {'class': 'site-inner'}):
+        dates = element.find_all('time', {'itemprop':'datePublished'})
+        title = element.find_all('h2', {'itemprop':'headline'})
+        link = element.find_all('a', {'class':'entry-title-link'}, href=True)
+        for date, title, link in zip(dates, title, link):
+            row = []
+            row.append(date.text)
+            row.append(title.text)
+            row.append(link['href'])
+            table.append(row)
 
-data = {'Date': dates, 'Title': titles, 'Link': links} 
-df_scrape = pd.DataFrame(data = data)
-print(df_scrape)
+    df = pd.DataFrame(data=table, columns=['Date', 'Title', 'Link'])
+    df.to_csv('Virology_Blog.csv', index=False)
+    return df
 
+df_scrape = scrape_blog_front_page()
 df_old = pd.read_csv('https://raw.githubusercontent.com/bbennett80/virology_blog/main/virology_blog.csv')
-
 df_append = df_scrape[~df_scrape.Title.isin(df_old.Title)]
-
-df_append.append(df_old).to_csv('virology_blog.csv', index=False)
+pd.concat([df_append, df_old]).to_csv('virology_blog.csv', index=False)
