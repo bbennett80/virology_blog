@@ -24,7 +24,6 @@ def scrape_blog_front_page():
             table.append(row)
 
     df = pd.DataFrame(data=table, columns=['Date', 'Title', 'Link'])
-    df.to_csv('Virology_Blog.csv', index=False)
     return df
 
 df_scrape = scrape_blog_front_page()
