@@ -17,9 +17,9 @@ def get_max_page():
     """Searches for the last page in the blog"""
     print('Looking at blog page: ')
     
-    #The starting point in range is 231. Will be adjusted higher as blog pages increase.
+    #The starting point in range is 410. Will be adjusted higher as blog pages increase.
     #This is used to keep down requests to the blog server.
-    for i in range(231, 10000):
+    for i in range(410, 10000):
         url = f'http://www.virology.ws/page/{i}'
         print(i)
         r = requests.get(url)
