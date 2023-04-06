@@ -13,21 +13,38 @@ def main():
     write_table(create_table)
 
 
+def previous_max_page():
+    with open('page.txt', 'r') as previous_last_page:
+        page = previous_last_page.read()
+    
+    return int(page)
+
+
+def write_max_page(max_page):
+    with open('page.txt', '+w') as last_page:
+        last_page.write(str(page))
+    
+    return
+
+
 def get_max_page():
     """Searches for the last page in the blog"""
     print('Looking at blog page: ')
     
-    #The starting point in range is 410. Will be adjusted higher as blog pages increase.
-    #This is used to keep down requests to the blog server.
-    for i in range(410, 10000):
+    starting_page = previous_max_page()
+    
+    for i in range(starting_page, 10000):
         url = f'http://www.virology.ws/page/{i}'
         print(i)
         r = requests.get(url)
         if r.status_code != 200:
             max_page = i
             print(f'\nThe last page in the blog is {max_page}\n')
+            write_max_page(max_page)
             break
+            
     return max_page
+
 
 def scrape_blog(max_page):
     """Gathers/creates a table of blog posts"""
