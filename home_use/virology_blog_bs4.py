@@ -22,7 +22,7 @@ def previous_max_page():
 
 def write_max_page(max_page):
     with open('page.txt', '+w') as last_page:
-        last_page.write(str(page))
+        last_page.write(str(max_page))
     
     return
 
