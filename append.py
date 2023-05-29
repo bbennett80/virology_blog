@@ -7,7 +7,7 @@ def scrape_blog_front_page():
     """Gathers/creates a table of blog first page"""    
     table = []
 
-    url = 'http://www.virology.ws/page/1'
+    url = 'https://virology.ws/virology-posts/'
     r = requests.get(url)
     html = r.text
     soup = BeautifulSoup(html, 'html.parser')
