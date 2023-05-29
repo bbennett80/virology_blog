@@ -14,5 +14,5 @@ Please follow all of Dr. Racaniello's podcast:
 [Immune](https://www.microbe.tv/immune/) </br>
 [This Week in Neuroscience](https://www.microbe.tv/twin/) </br>
 
-A Google Sheet version can be found [here](https://docs.google.com/spreadsheets/d/15YhpqfOwC-oyK_OdBp9Rllv9V_eBniJzF3-oK2dzfog/edit?usp=sharing).
+A Google Sheet version can be found [here](https://docs.google.com/spreadsheets/d/15YhpqfOwC-oyK_OdBp9Rllv9V_eBniJzF3-oK2dzfog/).
   - Note: The Google Sheet may be slightly delayed in updating up to 2 hours.
