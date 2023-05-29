@@ -34,7 +34,7 @@ def get_max_page():
     starting_page = previous_max_page()
     
     for i in range(starting_page, 10000):
-        url = f'http://www.virology.ws/page/{i}'
+        url = f'https://virology.ws/virology-posts/{i}'
         print(i)
         r = requests.get(url)
         if r.status_code != 200:
@@ -48,11 +48,10 @@ def get_max_page():
 
 def scrape_blog(max_page):
     """Gathers/creates a table of blog posts"""
-    print('Gathering blog post information...')
     
     table = []
 
-    for i in trange(1, max_page):
+    for i in range(1, max_page):
 
         url = f'http://www.virology.ws/page/{i}'
         r = requests.get(url)
@@ -62,15 +61,15 @@ def scrape_blog(max_page):
             html = r.text
             soup = BeautifulSoup(html, 'html.parser')
 
-            for element in soup.find_all('div', {'class': 'site-inner'}):
-                dates = element.find_all('time', {'itemprop':'datePublished'})
-                title = element.find_all('h2', {'itemprop':'headline'})
-                link = element.find_all('a', {'class':'entry-title-link'}, href=True)
-                for date, title, link in zip(dates, title, link):
+            for element in soup.find_all('div', {"class": "uabb-blog-post-content"}):
+                dates = element.find_all('span', {'class':'uabb-meta-date'})
+                titles = element.find_all('a', {'tabindex': '0'})
+
+                for date, title in zip(dates, titles):
                     row = []
-                    row.append(date.text)
+                    row.append(date.text.strip('\n\r\t'))
                     row.append(title.text)
-                    row.append(link['href'])
+                    row.append(title['href'])
                     table.append(row)
     return table
                     
