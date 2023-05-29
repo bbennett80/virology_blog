@@ -1,7 +1,7 @@
+#!/usr/bin/env python3
 from bs4 import BeautifulSoup
 import pandas as pd
 import requests
-from tqdm import trange
 
 def main():
     """A simple script that gathers Date, Title, and Link from virology.ws blog using BeautifulSoup.
@@ -13,47 +13,36 @@ def main():
     write_table(create_table)
 
 
-def previous_max_page():
-    with open('page.txt', 'r') as previous_last_page:
-        page = previous_last_page.read()
-    
-    return int(page)
-
-
-def write_max_page(max_page):
-    with open('page.txt', '+w') as last_page:
-        last_page.write(str(max_page))
-    
-    return
-
-
 def get_max_page():
-    """Searches for the last page in the blog"""
-    print('Looking at blog page: ')
+    """finds the last blog page number"""
     
-    starting_page = previous_max_page()
+    url = f'https://virology.ws/virology-posts/'
+    r = requests.get(url)
+    html = r.text
+    soup = BeautifulSoup(html, 'html.parser')
     
-    for i in range(starting_page, 10000):
-        url = f'https://virology.ws/virology-posts/{i}'
-        print(i)
-        r = requests.get(url)
-        if r.status_code != 200:
-            max_page = i
-            print(f'\nThe last page in the blog is {max_page}\n')
-            write_max_page(max_page)
-            break
-            
-    return max_page
+    block = soup.find_all('ul', {'class': 'page-numbers'})
+    
+    for element in block:
+        page = element.find_all('a', {'class': 'page-numbers'})
+        max_page = page[2].text
+        
+    return int(max_page)
 
 
 def scrape_blog(max_page):
     """Gathers/creates a table of blog posts"""
     
     table = []
+    
+    max_page = get_max_page()
+    print(f'There are {max_page} pages to look through.\n')
 
-    for i in range(1, max_page):
+    for i in range(1, max_page+1):
+        print('Looking at blog page: ', i)
 
-        url = f'http://www.virology.ws/page/{i}'
+
+        url = f'https://virology.ws/virology-posts/page/{i}'
         r = requests.get(url)
         if r.status_code != 200:
             break
@@ -75,7 +64,7 @@ def scrape_blog(max_page):
                     
 def write_table(table):
     df = pd.DataFrame(data=table, columns=['Date', 'Title', 'Link'])
-    df.to_csv('Virology_Blog.csv', index=False)
+    df.to_csv('../virology_blog.csv', index=False)
     return df
     
 
