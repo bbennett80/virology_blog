@@ -12,15 +12,15 @@ def scrape_blog_front_page():
     html = r.text
     soup = BeautifulSoup(html, 'html.parser')
 
-    for element in soup.find_all('div', {'class': 'site-inner'}):
-        dates = element.find_all('time', {'itemprop':'datePublished'})
-        title = element.find_all('h2', {'itemprop':'headline'})
-        link = element.find_all('a', {'class':'entry-title-link'}, href=True)
-        for date, title, link in zip(dates, title, link):
+    for element in soup.find_all('div', {"class": "uabb-blog-post-content"}):
+        dates = element.find_all('span', {'class':'uabb-meta-date'})
+        titles = element.find_all('a', {'tabindex': '0'})
+
+        for date, title in zip(dates, titles):
             row = []
-            row.append(date.text)
+            row.append(date.text.strip('\n\r\t'))
             row.append(title.text)
-            row.append(link['href'])
+            row.append(title['href'])
             table.append(row)
 
     df = pd.DataFrame(data=table, columns=['Date', 'Title', 'Link'])
