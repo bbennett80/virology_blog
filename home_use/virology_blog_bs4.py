@@ -64,7 +64,7 @@ def scrape_blog(max_page):
                     
 def write_table(table):
     df = pd.DataFrame(data=table, columns=['Date', 'Title', 'Link'])
-    df.to_csv('../virology_blog.csv', index=False)
+    df.to_csv('virology_blog.csv', index=False)
     return df
     
 
